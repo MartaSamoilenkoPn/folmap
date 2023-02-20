@@ -1,7 +1,7 @@
 """
 Film map Module
 
-Link
+Link: https://github.com/MartaSamoilenkoPn/folmap.git
 """
 import argparse
 from math import radians, cos, sin, asin, sqrt
