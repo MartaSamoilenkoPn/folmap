@@ -11,6 +11,8 @@ from geopy.geocoders import Nominatim
 def calculate_distance(lontitude1, latitude1, lontitude2, latitude2) -> int:
     """
     Calculate distance using haversine formula
+    >>> calculate_distance(50, 50, 100, 100)
+    5220.401839979799
     """
     radius = 6371
     lontitude1, latitude1, lontitude2, latitude2 = map(radians, \
@@ -102,4 +104,5 @@ year = args.year
 cordinate1 = args.cordinate1
 cordinate2 = args.cordinate2
 geo_dict = read_file(path, year)
-create_map(geo_dict, year, cordinate1, cordinate2)
+print()
+# create_map(geo_dict, year, cordinate1, cordinate2)
