@@ -80,7 +80,7 @@ def create_map(geo_dict : dict, year : int, lat2 : int, lon2 : int):
                 try:
                     location = geolocator.geocode(geo_dict[key][1])
                     fg.add_child(folium.Marker(location=[location.latitude, location.longitude],
-                                                popup=key + '\n' + str(year),
+                                                popup=folium.Popup(key + '\n' + str(year)),
                                                 icon=folium.Icon(color="black")))
                     fg1.add_child(folium.PolyLine([[lat2, lon2], [location.latitude, location.longitude]]))
                 except AttributeError:
@@ -104,5 +104,4 @@ year = args.year
 cordinate1 = args.cordinate1
 cordinate2 = args.cordinate2
 geo_dict = read_file(path, year)
-print()
-# create_map(geo_dict, year, cordinate1, cordinate2)
+create_map(geo_dict, year, cordinate1, cordinate2)
