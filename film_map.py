@@ -33,7 +33,7 @@ def read_file(file_name : str, year : int) -> dict():
             list_lines.pop(0)
         for line in list_lines:
             line.replace('\t', '')
-        for line_index in range(15, 10000):
+        for line_index in range(15,20000):
             line = list_lines[line_index]
             line = line.split('\t')
             line = [element for element in line if element != '']
@@ -60,9 +60,10 @@ def create_map(geo_dict : dict, year : int, lat2 : int, lon2 : int):
     Create map
     """
     map = folium.Map(tiles="Stamen Terrain")
-    map.save("Map_Stamen.html")
     geolocator = Nominatim(user_agent="Marta")
-    fg = folium.FeatureGroup(name="map_trial")
+    fg = folium.FeatureGroup(name="films")
+    fg1 = folium.FeatureGroup(name="lines")
+    map.add_child(folium.Marker(location=[lat2, lon2], popup="Your point", icon = folium.Icon(color="red")))
     for key in geo_dict:
         try:
             location = geolocator.geocode(geo_dict[key][1])
@@ -77,13 +78,16 @@ def create_map(geo_dict : dict, year : int, lat2 : int, lon2 : int):
                 try:
                     location = geolocator.geocode(geo_dict[key][1])
                     fg.add_child(folium.Marker(location=[location.latitude, location.longitude],
-                                                popup=key+ '\n' + str(year),
-                                                icon=folium.Icon()))
+                                                popup=key + '\n' + str(year),
+                                                icon=folium.Icon(color="black")))
+                    fg1.add_child(folium.PolyLine([[lat2, lon2], [location.latitude, location.longitude]]))
                 except AttributeError:
                     continue
             else:
                 break
     map.add_child(fg)
+    map.add_child(fg1)
+    map.add_child(folium.LayerControl())
     map.save('Marked_Map.html')
 
 parser = argparse.ArgumentParser()
